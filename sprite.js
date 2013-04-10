@@ -67,9 +67,8 @@ a = document.createElement('a');
 span = document.createElement('span');
 
 a.href = img;
-a.innerText = "sprite image";
+a.textContent = "sprite image";
 a.target = '_blank';
-
 
 css = sprite.css;
 newCss = new Array();
@@ -80,7 +79,7 @@ for (i=0; i<css.length; i++){
 	newCss.push('.'+name+'{ background-position:'+x+'px '+y+'px; }');
 }
 
-span.innerText = newCss.join("\n");
+span.textContent = newCss.join("\n");
 
 div.appendChild(a);
 div.appendChild(document.createElement("br"));
