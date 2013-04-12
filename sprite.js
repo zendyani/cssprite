@@ -2,6 +2,7 @@ function Generator(){
 	this.id = '';
 	this.height = 0;
 	this.width = 0;
+	this.maxWidth = 100;
 	this.images = '';
 	this.spriteDataUrl = '';
 	this.css;
@@ -10,17 +11,22 @@ function Generator(){
 Generator.prototype.getAllImg  = function(){
 	
 	var images = document.getElementById(this.id).getElementsByTagName("img");
-	var t_height = 0;
-	var t_width = 0;
-
+	x = y =0;
+	totalX = 0;
 	for ( i=0; i<images.length; i++ ){	
-		t_height = images[i].height;
-		t_width += images[i].width;
+		totalX += images[i].width;
+		if(totalX >= this.maxWidth){
+			y += images[i].height;
+			x = totalX;
+			totalX = 0;
+		}else{
+			x += images[i].width;
+		}
 	}
 
 	this.images = images;
-	this.width = t_width;
-	this.height = t_height;
+	this.width = x;
+	this.height = y;
 }
 
 Generator.prototype.generateSprite = function(){
@@ -45,12 +51,15 @@ Generator.prototype.generateSprite = function(){
 		img.src = images[i].src;
 
 		cc2.drawImage(img,x,y);
-
 		css.push([imgName,x,y]); 
 
-		x += images[i].width; // incremented for every img
-		y = 0;
+		x += images[i].width;
+		if(x >= this.maxWidth){
+			y += images[i].height;
+			x = 0;
+		}
 	}
+
 	this.css = css;
 
 	// send sprite
@@ -60,6 +69,7 @@ Generator.prototype.generateSprite = function(){
 // do the work
 sprite = new Generator;
 sprite.id = 'images';
+sprite.maxWidth = 100;
 img = sprite.generateSprite();
 
 div = document.createElement('div');
