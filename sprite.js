@@ -26,7 +26,9 @@
 function Generator(){
 	this.id = '';
 	this.height = 0;
+	this.rHeight = 0; // value to resize image to
 	this.width = 0;
+	this.rWidth = 0; // value to resize image to 
 	this.maxWidth = 100;
 	this.images = '';
 	this.spriteDataUrl = '';
@@ -76,16 +78,18 @@ Generator.prototype.generateSprite = function(){
 
 		img = new Image();
 		img.src = images[i].src;
+		img.width = this.rWidth;
+		img.height = this.rHeight;
 
-		cc2.drawImage(img,x,y);
+		cc2.drawImage(img,x,y,this.rWidth,this.rHeight);
 
 		xCss = (x == 0)? 0 : -x ;
 		yCss = (y == 0)? 0 : -y ;
 		css.push([imgName,xCss,yCss]); 
 
-		x += images[i].width;
+		x += img.width;
 		if(x >= this.maxWidth){
-			y += images[i].height;
+			y += img.height;
 			x = 0;
 		}
 	}
