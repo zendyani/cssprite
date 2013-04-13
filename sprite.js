@@ -78,7 +78,10 @@ Generator.prototype.generateSprite = function(){
 		img.src = images[i].src;
 
 		cc2.drawImage(img,x,y);
-		css.push([imgName,x,y]); 
+
+		xCss = (x == 0)? 0 : -x ;
+		yCss = (y == 0)? 0 : -y ;
+		css.push([imgName,xCss,yCss]); 
 
 		x += images[i].width;
 		if(x >= this.maxWidth){
