@@ -1,3 +1,28 @@
+/* 
+ * image sprite + css code associated generator using cnavas
+ *
+ * @author Belakhdar Abdeldjalil<zendyani@gmail.com>
+ * @link https://github.com/zendyani/cssprite
+ * @license 
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; version 2
+ * of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * example of use
+ *
+ *	sprite = new Generator;
+ *	sprite.id = 'images';
+ *	sprite.maxWidth = 200;
+ *	sprite.displayResult();			
+ */
+
 function Generator(){
 	this.id = '';
 	this.height = 0;
