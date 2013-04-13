@@ -66,33 +66,39 @@ Generator.prototype.generateSprite = function(){
 	return c2.toDataURL();
 }
 
-// do the work
-sprite = new Generator;
-sprite.id = 'images';
-sprite.maxWidth = 100;
-img = sprite.generateSprite();
+Generator.prototype.displayResult = function(){
 
-div = document.createElement('div');
-a = document.createElement('a');
-span = document.createElement('span');
+	div = document.createElement('div');
+	a = document.createElement('a');
+	span = document.createElement('span');
 
-a.href = img;
-a.textContent = "sprite image";
-a.target = '_blank';
+	a.href = this.generateSprite();
+	a.textContent = "sprite image";
+	a.target = '_blank';
 
-css = sprite.css;
-newCss = new Array();
-for (i=0; i<css.length; i++){
-	name = css[i][0];
-	x = css[i][1];
-	y = css[i][2];
-	newCss.push('.'+name+'{ background-position:'+x+'px '+y+'px; }');
+	css = this.css;
+	newCss = new Array();
+	for (i=0; i<css.length; i++){
+		name = css[i][0];
+		x = css[i][1];
+		y = css[i][2];
+		newCss.push('.'+name+'{ background-position:'+x+'px '+y+'px; }');
+	}
+
+	span.textContent = newCss.join("\n");
+
+	div.appendChild(a);
+	div.appendChild(document.createElement("br"));
+	div.appendChild(span);
+
+	document.body.appendChild(div);	
+
 }
 
-span.textContent = newCss.join("\n");
+// do the work
+sprite = new Generator;
 
-div.appendChild(a);
-div.appendChild(document.createElement("br"));
-div.appendChild(span);
+sprite.id = 'images';
+sprite.maxWidth = 200;
 
-document.body.appendChild(div);
+sprite.displayResult();
