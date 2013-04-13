@@ -19,7 +19,7 @@
  *
  *	sprite = new Generator;
  *	sprite.id = 'images';
- *	sprite.maxWidth = 200;
+ *	sprite.maxWidth = 500;
  *	sprite.displayResult();			
  */
 
@@ -34,11 +34,12 @@ function Generator(){
 }
 
 Generator.prototype.getAllImg  = function(){
-	
+	// get all image by bloc id
 	var images = document.getElementById(this.id).getElementsByTagName("img");
 	x = y =0;
 	totalX = 0;
 	for ( i=0; i<images.length; i++ ){	
+		// used to compare with maxWidth to not overide x value
 		totalX += images[i].width;
 		if(totalX >= this.maxWidth){
 			y += images[i].height;
@@ -47,6 +48,7 @@ Generator.prototype.getAllImg  = function(){
 		}else{
 			x += images[i].width;
 		}
+		y = (y === 0) ? images[i].height : y; 
 	}
 
 	this.images = images;
@@ -91,6 +93,7 @@ Generator.prototype.generateSprite = function(){
 	return c2.toDataURL();
 }
 
+// display result on a appended div in the end of body
 Generator.prototype.displayResult = function(){
 
 	div = document.createElement('div');
@@ -119,11 +122,3 @@ Generator.prototype.displayResult = function(){
 	document.body.appendChild(div);	
 
 }
-
-// do the work
-sprite = new Generator;
-
-sprite.id = 'images';
-sprite.maxWidth = 200;
-
-sprite.displayResult();
