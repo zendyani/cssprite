@@ -52,6 +52,7 @@ Generator.prototype.getAllImg  = function(){
 			x += images[i].width;
 		}
 		y = (y === 0) ? images[i].height : y; 
+
 	}
 
 	this.images = images;
