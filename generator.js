@@ -80,10 +80,16 @@ Generator.prototype.generateSprite = function(){
 
 		img = new Image();
 		img.src = images[i].src;
-		img.width = this.rWidth;
-		img.height = this.rHeight;
 
-		cc2.drawImage(img,x,y,this.rWidth,this.rHeight);
+		if(this.rWidth !== 0 && this.rHeight !== 0){
+			img.width = this.rWidth;
+			img.height = this.rHeight;
+		}else{
+			img.width = images[i].width;
+			img.height = images[i].height;
+		}
+
+		cc2.drawImage(img,x,y,img.width ,img.height);
 
 		xCss = (x == 0)? 0 : -x ;
 		yCss = (y == 0)? 0 : -y ;
