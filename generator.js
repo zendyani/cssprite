@@ -23,7 +23,8 @@
  *	sprite.displayResult();			
  */
 
-function Generator(){
+function Generator() {
+	'use strict';
 	this.id = '';
 	this.height = 0;
 	this.rHeight = 0; // value to resize image to
@@ -32,72 +33,70 @@ function Generator(){
 	this.maxWidth = 100;
 	this.images = '';
 	this.spriteDataUrl = '';
-	this.css;
+	this.css = '';
 }
 
-Generator.prototype.getAllImg  = function(){
+Generator.prototype.getAllImg  = function () {
 	// get all image by bloc id
 	var images = document.getElementById(this.id).getElementsByTagName("img");
-	x = y =0;
+	x = y = 0;
 	totalX = 0;
-	for ( i=0; i<images.length; i++ ){	
+	for (i = 0; i < images.length; i++) {
 		// used to compare with maxWidth to not overide x value
 		totalX += images[i].width;
 
-		if(totalX >= this.maxWidth){
+		if (totalX >= this.maxWidth) {
 			y += images[i].height;
 			x = totalX;
 			totalX = 0;
-		}else{
+		} else {
 			x += images[i].width;
 		}
-		y = (y === 0) ? images[i].height : y; 
+
+		y = (y === 0) ? images[i].height : y;
 
 	}
 
 	this.images = images;
 	this.width = x;
 	this.height = y;
-}
+};
 
-Generator.prototype.generateSprite = function(){
-	
+Generator.prototype.generateSprite = function () {
 	this.getAllImg();
-	
 	c2 = document.createElement("canvas");
 	c2.width = this.width;
 	c2.height = this.height;
-	console.log(this.width);
 	cc2 = c2.getContext("2d");
 	x = y = 0;
 	
 	images = this.images;
-	css = new Array();
+	css = [];
 
-	for ( i=0; i<images.length; i++ ){
-		
+	for (i=0; i<images.length; i++) {
+
 		imgSrc = images[i].src;
 		imgName = imgSrc.substring(imgSrc.lastIndexOf('/') + 1, imgSrc.lastIndexOf('.'));
 
 		img = new Image();
 		img.src = images[i].src;
 
-		if(this.rWidth !== 0 && this.rHeight !== 0){
+		if (this.rWidth !== 0 && this.rHeight !== 0) {
 			img.width = this.rWidth;
 			img.height = this.rHeight;
-		}else{
+		} else {
 			img.width = images[i].width;
 			img.height = images[i].height;
 		}
 
-		cc2.drawImage(img,x,y,img.width ,img.height);
+		cc2.drawImage(img, x, y, img.width, img.height);
 
-		xCss = (x == 0)? 0 : -x ;
-		yCss = (y == 0)? 0 : -y ;
-		css.push([imgName,xCss,yCss]); 
+		xCss = (x === 0) ? 0 : -x;
+		yCss = (y === 0) ? 0 : -y;
+		css.push([imgName, xCss, yCss]); 
 
 		x += img.width;
-		if(x >= this.maxWidth){
+		if (x >= this.maxWidth) {
 			y += img.height;
 			x = 0;
 		}
@@ -107,10 +106,10 @@ Generator.prototype.generateSprite = function(){
 
 	// send sprite
 	return c2.toDataURL();
-}
+};
 
 // display result on a appended div in the end of body
-Generator.prototype.displayResult = function(){
+Generator.prototype.displayResult = function () {
 
 	div = document.createElement('div');
 	a = document.createElement('a');
@@ -121,12 +120,12 @@ Generator.prototype.displayResult = function(){
 	a.target = '_blank';
 
 	css = this.css;
-	newCss = new Array();
-	for (i=0; i<css.length; i++){
+	newCss = [];
+	for (i = 0; i < css.length; i++) {
 		name = css[i][0];
 		x = css[i][1];
 		y = css[i][2];
-		newCss.push('.'+name+'{ background-position:'+x+'px '+y+'px; }');
+		newCss.push('.' + name + '{ background-position:' + x + 'px ' + y + 'px; }');
 	}
 
 	span.textContent = newCss.join("\n");
@@ -135,6 +134,6 @@ Generator.prototype.displayResult = function(){
 	div.appendChild(document.createElement("br"));
 	div.appendChild(span);
 
-	document.body.appendChild(div);	
+	document.body.appendChild(div);
 
-}
+};
