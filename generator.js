@@ -24,7 +24,7 @@
  */
 
 function Generator() {
-	'use strict';
+	
 	this.id = '';
 	this.height = 0;
 	this.rHeight = 0; // value to resize image to
@@ -33,7 +33,7 @@ function Generator() {
 	this.maxWidth = 100;
 	this.images = '';
 	this.spriteDataUrl = '';
-	this.css = '';
+	this.css = [];
 }
 
 Generator.prototype.getAllImg  = function () {
